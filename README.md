@@ -10,7 +10,9 @@ I wish you luck, if you manage to find an error please tell me (that's if you ca
 The version number: 2.42
 
 1.00 = Is major change (visual or functionality)
+
 0.10 = Is minor change (can be visual, though mainly functionality)
+
 0.01 = Is bug fix (only for when making fixes)
 
 
