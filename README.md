@@ -7,7 +7,7 @@ I wish you luck, if you manage to find an error please tell me (that's if you ca
 --- Key Note ---
 
 
-The version number: 2.42
+The version number: 3.41
 
 1.00 = Is major change (visual or functionality)
 

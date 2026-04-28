@@ -2,11 +2,22 @@ import { BusCard } from "@/components/BusCard";
 import { fleet } from "@/data/fleetData";
 import { Bus, Wrench, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { AccessibilityToggle } from "@/components/AccessibilityToggle";
-[]
+
+const DEPOT_COUNT = 6;
+
 const Index = () => {
   const operational = fleet.filter(b => b.status === "Operational").length;
   const needsService = fleet.filter(b => b.status === "Needs Service").length;
   const underRepair = fleet.filter(b => b.status === "Under Repair").length;
+
+  const depots = Array.from({ length: DEPOT_COUNT }, (_, index) => {
+    const depotNumber = index + 1;
+
+    return {
+      depotNumber,
+      buses: fleet.filter((_, busIndex) => busIndex % DEPOT_COUNT === index),
+    };
+  });
 
   const stats = [
     { label: "Total Fleet", value: fleet.length, icon: Bus, color: "text-primary bg-primary/10" },
@@ -48,14 +59,38 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Fleet Grid */}
-        <div>
-          <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">Fleet Overview</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {fleet.map(bus => (
-              <BusCard key={bus.id} bus={bus} />
-            ))}
-          </div>
+        {/* Depot Groups */}
+        <div className="space-y-6">
+          <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+            Depots
+          </h2>
+
+          {depots.map(depot => (
+            <section key={depot.depotNumber} className="space-y-3">
+              <div className="flex items-center justify-between rounded-lg border bg-card px-4 py-3">
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">
+                    Depot {depot.depotNumber}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {depot.buses.length} {depot.buses.length === 1 ? "bus" : "buses"}
+                  </p>
+                </div>
+              </div>
+
+              {depot.buses.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {depot.buses.map(bus => (
+                    <BusCard key={bus.id} bus={bus} />
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-lg border border-dashed bg-card p-6 text-sm text-muted-foreground">
+                  No buses assigned to this depot.
+                </div>
+              )}
+            </section>
+          ))}
         </div>
       </main>
     </div>

@@ -1,31 +1,32 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fleet, getDaysAgo, getDaysUntil } from "@/data/fleetData";
-import type { BusComponent } from "@/data/fleetData";
+import type { BusComponent, MaintenanceEntry } from "@/data/fleetData";
 import { BusStatusBadge } from "@/components/StatusBadge";
 import { ComponentCard } from "@/components/ComponentCard";
 import { ARView } from "@/components/ARView";
 import { HistoryModal } from "@/components/HistoryModal";
 import { MaintenanceLogModal } from "@/components/MaintenanceLogModal";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Bus as BusIcon, Gauge, Calendar, MapPin } from "lucide-react";
-import {AccessibilityToggle} from "@/components/AccessibilityToggle.tsx";
+import { ArrowLeft, Bus as BusIcon, Gauge, Calendar, MapPin, Eye } from "lucide-react";
+import { AccessibilityToggle } from "@/components/AccessibilityToggle.tsx";
 
 const BusDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const bus = fleet.find(b => b.id === id);
+  const busData = fleet.find(b => b.id === id);
 
-  const [arComponent, setArComponent] = useState<BusComponent | null>(null);
+  const [arOpen, setArOpen] = useState(false);
   const [historyComponent, setHistoryComponent] = useState<BusComponent | null>(null);
   const [logComponent, setLogComponent] = useState<BusComponent | null>(null);
+  const [components, setComponents] = useState<BusComponent[]>(busData?.components ?? []);
 
-  if (!bus) {
+  if (!busData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <p className="text-lg font-bold text-foreground">Bus not found</p>
-          <Button variant="outline" onClick={() => navigate("/")} className="mt-4">
+          <Button variant="outline" onClick={() => navigate("/dashboard")} className="mt-4">
             <ArrowLeft className="h-4 w-4 mr-2" /> Back to Fleet
           </Button>
         </div>
@@ -33,13 +34,29 @@ const BusDetail = () => {
     );
   }
 
+  const bus = { ...busData, components };
   const daysUntilService = getDaysUntil(bus.nextServiceDate);
+
+  const handleLogSubmit = (componentId: string, entry: MaintenanceEntry) => {
+    setComponents(prev =>
+      prev.map(comp =>
+        comp.id === componentId
+          ? { ...comp, history: [entry, ...comp.history] }
+          : comp
+      )
+    );
+    setHistoryComponent(prev =>
+      prev?.id === componentId
+        ? { ...prev, history: [entry, ...prev.history] }
+        : prev
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card sticky top-0 z-10">
         <div className="container max-w-6xl flex items-center gap-3 py-4 px-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
+          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
@@ -51,6 +68,9 @@ const BusDetail = () => {
           </div>
           <div className="ml-auto flex items-center gap-3">
             <BusStatusBadge status={bus.status} />
+            <Button variant="outline" size="sm" onClick={() => setArOpen(true)}>
+              <Eye className="h-3.5 w-3.5 mr-1.5" /> AR View
+            </Button>
             <AccessibilityToggle />
           </div>
         </div>
@@ -95,11 +115,10 @@ const BusDetail = () => {
         <div>
           <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">Component Health</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {bus.components.map(comp => (
+            {components.map(comp => (
               <ComponentCard
                 key={comp.id}
                 component={comp}
-                onOpenAR={setArComponent}
                 onOpenHistory={setHistoryComponent}
                 onLogMaintenance={setLogComponent}
               />
@@ -108,9 +127,15 @@ const BusDetail = () => {
         </div>
       </main>
 
-      <ARView open={!!arComponent} onClose={() => setArComponent(null)} component={arComponent} />
+      <ARView open={arOpen} onClose={() => setArOpen(false)} bus={bus} />
       <HistoryModal open={!!historyComponent} onClose={() => setHistoryComponent(null)} component={historyComponent} />
-      <MaintenanceLogModal open={!!logComponent} onClose={() => setLogComponent(null)} component={logComponent} busName={bus.name} />
+      <MaintenanceLogModal
+        open={!!logComponent}
+        onClose={() => setLogComponent(null)}
+        component={logComponent}
+        busName={bus.name}
+        onLogSubmit={handleLogSubmit}
+      />
     </div>
   );
 };

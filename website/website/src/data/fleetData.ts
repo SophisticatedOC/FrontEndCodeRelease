@@ -130,6 +130,114 @@ export const fleet: Bus[] = [
       brakes: { status: "Due Soon", healthPercent: 50 },
     }),
   },
+  {
+    id: "bus-007", name: "BCP Bus 7", plateNumber: "BUS-4527", status: "Operational",
+    mileage: 76450, lastServiceDate: "2026-02-18", nextServiceDate: "2026-04-18",
+    year: 2022, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      cooling: { status: "Good", healthPercent: 86 },
+      electrical: { status: "Good", healthPercent: 82 },
+    }),
+  },
+  {
+    id: "bus-008", name: "BCP Bus 8", plateNumber: "BUS-4528", status: "Needs Service",
+    mileage: 112300, lastServiceDate: "2026-01-22", nextServiceDate: "2026-03-22",
+    year: 2021, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      brakes: { status: "Due Soon", healthPercent: 42 },
+      tires: { status: "Due Soon", healthPercent: 48 },
+    }),
+  },
+  {
+    id: "bus-009", name: "BCP Bus 9", plateNumber: "BUS-4529", status: "Operational",
+    mileage: 45890, lastServiceDate: "2026-03-03", nextServiceDate: "2026-05-03",
+    year: 2024, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      engine: { status: "Good", healthPercent: 91 },
+      transmission: { status: "Good", healthPercent: 89 },
+    }),
+  },
+  {
+    id: "bus-010", name: "BCP Bus 10", plateNumber: "BUS-4530", status: "Under Repair",
+    mileage: 153700, lastServiceDate: "2026-02-08", nextServiceDate: "2026-03-20",
+    year: 2020, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      suspension: { status: "Urgent", healthPercent: 18 },
+      brakes: { status: "Urgent", healthPercent: 22 },
+    }),
+  },
+  {
+    id: "bus-011", name: "BCP Bus 11", plateNumber: "BUS-4531", status: "Operational",
+    mileage: 69320, lastServiceDate: "2026-02-27", nextServiceDate: "2026-04-27",
+    year: 2023, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      electrical: { status: "Good", healthPercent: 90 },
+      battery: { status: "Good", healthPercent: 88 },
+    }),
+  },
+  {
+    id: "bus-012", name: "BCP Bus 12", plateNumber: "BUS-4532", status: "Needs Service",
+    mileage: 120880, lastServiceDate: "2026-01-30", nextServiceDate: "2026-03-30",
+    year: 2021, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      cooling: { status: "Due Soon", healthPercent: 46 },
+      transmission: { status: "Due Soon", healthPercent: 44 },
+    }),
+  },
+  {
+    id: "bus-013", name: "BCP Bus 13", plateNumber: "BUS-4533", status: "Operational",
+    mileage: 38210, lastServiceDate: "2026-03-05", nextServiceDate: "2026-05-05",
+    year: 2024, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      tires: { status: "Good", healthPercent: 94 },
+      brakes: { status: "Good", healthPercent: 87 },
+    }),
+  },
+  {
+    id: "bus-014", name: "BCP Bus 14", plateNumber: "BUS-4534", status: "Operational",
+    mileage: 84560, lastServiceDate: "2026-02-12", nextServiceDate: "2026-04-12",
+    year: 2022, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      engine: { status: "Good", healthPercent: 83 },
+      suspension: { status: "Good", healthPercent: 81 },
+    }),
+  },
+  {
+    id: "bus-015", name: "BCP Bus 15", plateNumber: "BUS-4535", status: "Needs Service",
+    mileage: 101420, lastServiceDate: "2026-01-18", nextServiceDate: "2026-03-18",
+    year: 2021, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      electrical: { status: "Urgent", healthPercent: 28 },
+      battery: { status: "Due Soon", healthPercent: 49 },
+    }),
+  },
+  {
+    id: "bus-016", name: "BCP Bus 16", plateNumber: "BUS-4536", status: "Operational",
+    mileage: 58940, lastServiceDate: "2026-02-28", nextServiceDate: "2026-04-28",
+    year: 2023, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      cooling: { status: "Good", healthPercent: 84 },
+      brakes: { status: "Good", healthPercent: 76 },
+    }),
+  },
+  {
+    id: "bus-017", name: "BCP Bus 17", plateNumber: "BUS-4537", status: "Under Repair",
+    mileage: 166250, lastServiceDate: "2026-02-04", nextServiceDate: "2026-03-25",
+    year: 2020, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      engine: { status: "Urgent", healthPercent: 19 },
+      cooling: { status: "Urgent", healthPercent: 24 },
+    }),
+  },
+  {
+    id: "bus-018", name: "BCP Bus 18", plateNumber: "BUS-4538", status: "Operational",
+    mileage: 72110, lastServiceDate: "2026-03-02", nextServiceDate: "2026-05-02",
+    year: 2022, model: "Alexander Dennis Enviro 400 MMC",
+    components: adjustComponents(defaultComponents, {
+      transmission: { status: "Good", healthPercent: 85 },
+      tires: { status: "Good", healthPercent: 79 },
+    }),
+  },
 ];
 
 export const getDaysAgo = (dateStr: string): number => {

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import type { BusComponent } from "@/data/fleetData";
+import type { BusComponent, MaintenanceEntry } from "@/data/fleetData";
 import { Wrench, RefreshCw, Replace } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -14,6 +14,7 @@ interface MaintenanceLogModalProps {
   onClose: () => void;
   component: BusComponent | null;
   busName: string;
+  onLogSubmit: (componentId: string, entry: MaintenanceEntry) => void;
 }
 
 type MaintenanceType = "repair" | "service" | "replacement";
@@ -24,7 +25,7 @@ const typeConfig: Record<MaintenanceType, { label: string; icon: React.ElementTy
   replacement: { label: "Replacement", icon: Replace, color: "border-status-service text-status-service bg-status-service/10" },
 };
 
-export function MaintenanceLogModal({ open, onClose, component, busName }: MaintenanceLogModalProps) {
+export function MaintenanceLogModal({ open, onClose, component, busName, onLogSubmit }: MaintenanceLogModalProps) {
   const [type, setType] = useState<MaintenanceType>("service");
   const [description, setDescription] = useState("");
   const [technician, setTechnician] = useState("");
@@ -35,6 +36,18 @@ export function MaintenanceLogModal({ open, onClose, component, busName }: Maint
       toast.error("Please fill in required fields");
       return;
     }
+
+    const newEntry: MaintenanceEntry = {
+      id: `${component!.id}-${Date.now()}`,
+      date: new Date().toISOString().split("T")[0],
+      type,
+      description,
+      technician,
+      notes: notes || undefined,
+    };
+
+    onLogSubmit(component!.id, newEntry);
+
     toast.success(`${typeConfig[type].label} logged for ${component?.name}`, {
       description: `Technician: ${technician}`,
     });

@@ -1,7 +1,6 @@
 import { ComponentStatusBadge } from "@/components/StatusBadge";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { Cog, Disc3 as Disc, Circle, Battery, ArrowUpDown, Thermometer, Settings, Zap, Eye, History, Wrench } from "lucide-react";
+import { Cog, Disc3 as Disc, Circle, Battery, ArrowUpDown, Thermometer, Settings, Zap, History, Wrench } from "lucide-react";
 import type { BusComponent } from "@/data/fleetData";
 import { getDaysAgo } from "@/data/fleetData";
 import { cn } from "@/lib/utils";
@@ -12,12 +11,11 @@ const iconMap: Record<string, React.ElementType> = {
 
 interface ComponentCardProps {
   component: BusComponent;
-  onOpenAR: (component: BusComponent) => void;
   onOpenHistory: (component: BusComponent) => void;
   onLogMaintenance: (component: BusComponent) => void;
 }
 
-export function ComponentCard({ component, onOpenAR, onOpenHistory, onLogMaintenance }: ComponentCardProps) {
+export function ComponentCard({ component, onOpenHistory, onLogMaintenance }: ComponentCardProps) {
   const Icon = iconMap[component.icon] || Cog;
 
   const progressColor = component.healthPercent >= 70
@@ -75,9 +73,6 @@ export function ComponentCard({ component, onOpenAR, onOpenHistory, onLogMainten
       </div>
 
       <div className="flex gap-1.5 pt-1">
-        <Button variant="outline" size="sm" className="flex-1 text-xs h-8" onClick={() => onOpenAR(component)}>
-          <Eye className="h-3 w-3 mr-1" /> AR View
-        </Button>
         <Button variant="outline" size="sm" className="flex-1 text-xs h-8" onClick={() => onOpenHistory(component)}>
           <History className="h-3 w-3 mr-1" /> History
         </Button>

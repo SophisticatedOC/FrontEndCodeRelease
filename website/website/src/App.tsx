@@ -4,27 +4,32 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccessibilityProvider } from "@/context/AccessibilityContext";
+import { PermissionProvider } from "@/context/PermissionContext";
 import Index from "./pages/Index.tsx";
+import Login from "./pages/Login.tsx";
 import BusDetail from "./pages/BusDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
-
 const queryClient = new QueryClient();
 
 const App = () => (
   <AccessibilityProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/bus/:id" element={<BusDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    {/* TODO: Replace role="user" with the role from real auth once login is implemented (not my job so enjoy -oli) */}
+    <PermissionProvider role="user">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/dashboard" element={<Index />} />
+              <Route path="/bus/:id" element={<BusDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </PermissionProvider>
   </AccessibilityProvider>
 );
 
