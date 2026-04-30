@@ -1,18 +1,37 @@
 const API_URL = "http://localhost:5000/api";
 
+// Get the saved login token from localStorage
+const getToken = () => localStorage.getItem("token");
+
+// Shared headers for protected API requests
+const getAuthHeaders = () => {
+  const token = getToken();
+
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
+
 export const getFleet = async () => {
-  const res = await fetch(`${API_URL}/fleet`);
+  const res = await fetch(`${API_URL}/fleet`, {
+    headers: getAuthHeaders(),
+  });
+
   const json = await res.json();
 
   if (!json.success) {
     throw new Error("Failed to fetch fleet");
   }
-
+console.log("Token being sent:", getToken());
   return json.data;
 };
 
 export const getBusById = async (id: string) => {
-  const res = await fetch(`${API_URL}/fleet/${id}`);
+  const res = await fetch(`${API_URL}/fleet/${id}`, {
+    headers: getAuthHeaders(),
+  });
+
   const json = await res.json();
 
   if (!json.success) {
@@ -28,12 +47,10 @@ export const addMaintenanceEntry = async (
   entry: any
 ) => {
   const res = await fetch(
-    `http://localhost:5000/api/fleet/${busId}/components/${componentId}/history`,
+    `${API_URL}/fleet/${busId}/components/${componentId}/history`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(entry),
     }
   );
@@ -48,7 +65,7 @@ export const addMaintenanceEntry = async (
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const res = await fetch("http://localhost:5000/api/auth/login", {
+  const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

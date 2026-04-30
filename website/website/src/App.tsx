@@ -12,9 +12,24 @@ import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
 
+//Retrieves the current user's role from local Storage.
+const getStoredUserRole = () => {
+  const storedUser = localStorage.getItem("user");
+
+  if (!storedUser) {
+    return "user";
+  }
+
+  try {
+    return JSON.parse(storedUser).role || "user";
+  } catch {
+    return "user";
+  }
+};
+
 const App = () => (
   <AccessibilityProvider>
-    <PermissionProvider role="user">
+    <PermissionProvider role={getStoredUserRole()}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
