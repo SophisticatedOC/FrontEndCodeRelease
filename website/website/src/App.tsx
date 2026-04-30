@@ -11,8 +11,12 @@ import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
 import BusDetail from "./pages/BusDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ARView from "./pages/ARView.tsx";
 import ToolTracker from "./pages/ToolTracker.tsx";
 import MaintenanceReports from "./pages/MaintenanceReport.tsx";
+import Tasks from "./pages/Tasks.tsx";
+import Notifications from "./pages/Notifications.tsx";
+import Settings from "./pages/Settings.tsx";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +47,10 @@ const AppRoutes = () => {
         <Route path="/bus/:id" element={<BusDetail />} />
         <Route path="/tool-tracker" element={<ToolTracker />} />
         <Route path="/maintenance-reports" element={<MaintenanceReports />} />
+        <Route path="/ar-view" element={<ARView />} />
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
