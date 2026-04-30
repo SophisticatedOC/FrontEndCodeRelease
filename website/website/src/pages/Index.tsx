@@ -1,11 +1,33 @@
 import { BusCard } from "@/components/BusCard";
-import { fleet } from "@/data/fleetData";
+import { useQuery } from "@tanstack/react-query";
+import { getFleet } from "@/lib/api";
 import { Bus, Wrench, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { AccessibilityToggle } from "@/components/AccessibilityToggle";
 
 const DEPOT_COUNT = 6;
 
 const Index = () => {
+  const { data: fleet = [], isLoading, error } = useQuery({
+    queryKey: ["fleet"],
+    queryFn: getFleet,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-lg font-bold text-foreground">Loading fleet...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-lg font-bold text-status-urgent">Error loading fleet</p>
+      </div>
+    );
+  }
+
   const operational = fleet.filter(b => b.status === "Operational").length;
   const needsService = fleet.filter(b => b.status === "Needs Service").length;
   const underRepair = fleet.filter(b => b.status === "Under Repair").length;
@@ -44,7 +66,6 @@ const Index = () => {
       </header>
 
       <main className="container max-w-6xl px-4 py-6 space-y-6">
-        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {stats.map(stat => (
             <div key={stat.label} className="rounded-lg border bg-card p-4 flex items-center gap-3">
@@ -59,7 +80,6 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Depot Groups */}
         <div className="space-y-6">
           <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
             Depots
