@@ -1,8 +1,8 @@
 import { ComponentStatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Cog, Disc3 as Disc, Circle, Battery, ArrowUpDown, Thermometer, Settings, Zap, History, Wrench } from "lucide-react";
-import type { BusComponent } from "@/data/fleetData";
-import { getDaysAgo } from "@/data/fleetData";
+import type { BusComponent } from "@/types/fleet";
+import { getDaysAgo } from "@/lib/dateUtils";
 import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, React.ElementType> = {

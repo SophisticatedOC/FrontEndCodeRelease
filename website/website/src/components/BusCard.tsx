@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { BusStatusBadge } from "@/components/StatusBadge";
 import { Bus as BusIcon, Gauge, Calendar, Wrench, ChevronRight } from "lucide-react";
-import type { Bus } from "@/data/fleetData";
-import { getDaysAgo, getDaysUntil } from "@/data/fleetData";
+import type { Bus } from "@/types/fleet";
+import { getDaysAgo, getDaysUntil } from "@/lib/dateUtils";
 
 export function BusCard({ bus }: { bus: Bus }) {
   const navigate = useNavigate();
