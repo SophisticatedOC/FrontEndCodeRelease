@@ -1,11 +1,11 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bus, LogIn } from "lucide-react";
-import { AccessibilityToggle } from "@/components/AccessibilityToggle";
+import { LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginUser } from "@/lib/api";
+import { AuthHeader } from "@/components/AuthHeader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,21 +33,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container max-w-6xl flex items-center gap-3 py-4 px-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <Bus className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-foreground leading-none">FleetView</h1>
-            <p className="text-xs text-muted-foreground">Fleet Maintenance Platform</p>
-          </div>
-          <div className="ml-auto">
-            <AccessibilityToggle />
-          </div>
-        </div>
-      </header>
-
+      <AuthHeader />
       <main className="container max-w-6xl px-4 py-10">
         <div className="mx-auto max-w-md rounded-lg border bg-card p-6 shadow-sm">
           <div className="mb-6 text-center">

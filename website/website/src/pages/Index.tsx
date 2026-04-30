@@ -2,7 +2,6 @@ import { BusCard } from "@/components/BusCard";
 import { useQuery } from "@tanstack/react-query";
 import { getFleet } from "@/lib/api";
 import { Bus, Wrench, AlertTriangle, CheckCircle2 } from "lucide-react";
-import { AccessibilityToggle } from "@/components/AccessibilityToggle";
 
 const DEPOT_COUNT = 6;
 
@@ -50,20 +49,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card sticky top-0 z-10">
-        <div className="container max-w-6xl flex items-center gap-3 py-4 px-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <Bus className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-foreground leading-none">FleetView</h1>
-            <p className="text-xs text-muted-foreground">Fleet Maintenance Platform</p>
-          </div>
-          <div className="ml-auto">
-            <AccessibilityToggle />
-          </div>
-        </div>
-      </header>
 
       <main className="container max-w-6xl px-4 py-6 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

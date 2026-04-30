@@ -1,14 +1,18 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AccessibilityProvider } from "@/context/AccessibilityContext";
 import { PermissionProvider } from "@/context/PermissionContext";
+import { Navbar } from "@/components/Navbar";
+
 import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
 import BusDetail from "./pages/BusDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ToolTracker from "./pages/ToolTracker.tsx";
+import MaintenanceReports from "./pages/MaintenanceReport.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,15 +20,33 @@ const queryClient = new QueryClient();
 const getStoredUserRole = () => {
   const storedUser = localStorage.getItem("user");
 
-  if (!storedUser) {
-    return "user";
-  }
+  if (!storedUser) return "user";
 
   try {
     return JSON.parse(storedUser).role || "user";
   } catch {
     return "user";
   }
+};
+
+const AppRoutes = () => {
+  const location = useLocation();
+  const hideNavbar = location.pathname === "/";
+
+  return (
+    <>
+      {!hideNavbar && <Navbar />}
+
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Index />} />
+        <Route path="/bus/:id" element={<BusDetail />} />
+        <Route path="/tool-tracker" element={<ToolTracker />} />
+        <Route path="/maintenance-reports" element={<MaintenanceReports />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
 };
 
 const App = () => (
@@ -34,13 +56,9 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
+
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/dashboard" element={<Index />} />
-              <Route path="/bus/:id" element={<BusDetail />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AppRoutes />
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
