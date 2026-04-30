@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import type { BusComponent, MaintenanceEntry } from "@/data/fleetData";
+import type { BusComponent, MaintenanceEntry } from "@/types/fleet";
 import { Wrench, RefreshCw, Replace } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";

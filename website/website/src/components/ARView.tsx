@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Camera, X, Smartphone } from "lucide-react";
-import type { Bus } from "@/data/fleetData";
+import type { Bus } from "@/types/fleet";
 import { usePermission } from "@/context/PermissionContext";
 
 interface ARViewProps {

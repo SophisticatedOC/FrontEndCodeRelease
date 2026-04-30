@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import type { BusComponent } from "@/data/fleetData";
+import type { BusComponent } from "@/types/fleet";
 import { Wrench, RefreshCw, Replace } from "lucide-react";
 import { cn } from "@/lib/utils";
 

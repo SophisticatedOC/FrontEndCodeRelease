@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { BusStatus, ComponentStatus } from "@/data/fleetData";
+import type { BusStatus, ComponentStatus } from "@/types/fleet";
 
 const busStatusStyles: Record<BusStatus, string> = {
   "Operational": "bg-status-operational/15 text-status-operational border-status-operational/30",

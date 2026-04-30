@@ -1,19 +1,24 @@
-// This file defines shared TypeScript types for fleet data
-// These types match what the backend returns
+// This file defines shared TypeScript types for fleet data.
+// These types match what the backend returns.
+
+export type BusStatus = "Operational" | "Needs Service" | "Under Repair";
+
+export type ComponentStatus = "Good" | "Due Soon" | "Urgent";
 
 export interface MaintenanceEntry {
   id: string;
   date: string;
-  type: "service" | "repair";
+  type: "service" | "repair" | "replacement";
   description: string;
   technician: string;
+  notes?: string | null;
 }
 
 export interface BusComponent {
   id: string;
   name: string;
   icon: string;
-  status: "Good" | "Due Soon" | "Urgent";
+  status: ComponentStatus;
   lastRepair: string;
   lastService: string;
   lastReplacement: string;
@@ -26,7 +31,7 @@ export interface Bus {
   id: string;
   name: string;
   plateNumber: string;
-  status: "Operational" | "Needs Service" | "Under Repair";
+  status: BusStatus;
   mileage: number;
   lastServiceDate: string;
   nextServiceDate: string;
