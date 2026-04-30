@@ -5,16 +5,31 @@ import { AccessibilityToggle } from "@/components/AccessibilityToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { loginUser } from "@/lib/api";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-    // Temporary open login: no username/password validation yet.
+  const formData = new FormData(event.currentTarget);
+
+  const email = formData.get("username") as string;
+  const password = formData.get("password") as string;
+
+  try {
+    const result = await loginUser(email, password);
+
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("user", JSON.stringify(result.user));
+
     navigate("/dashboard");
-  };
+  } catch (err) {
+    console.error("Login failed:", err);
+    alert("Invalid email or password");
+  }
+};
 
   return (
     <div className="min-h-screen bg-background">

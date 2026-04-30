@@ -19,14 +19,14 @@ import { createContext, useContext } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type UserRole = "user" | "manager";
+export type UserRole = "user" | "manager" | "admin";
 
 export type Permission = "inspect" | "create";
 
 // Map each permission to the minimum role required to use it.
 const ROLE_PERMISSIONS: Record<Permission, UserRole[]> = {
-  inspect: ["user", "manager"],
-  create:  ["manager"],
+  inspect: ["user", "manager", "admin"],
+  create:  ["manager", "admin"],
 };
 
 // ── Context ───────────────────────────────────────────────────────────────────

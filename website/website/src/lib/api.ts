@@ -46,3 +46,21 @@ export const addMaintenanceEntry = async (
 
   return json.data;
 };
+
+export const loginUser = async (email: string, password: string) => {
+  const res = await fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const json = await res.json();
+
+  if (!json.success) {
+    throw new Error(json.error || "Login failed");
+  }
+
+  return json.data;
+};
