@@ -1,11 +1,11 @@
-const CACHE_NAME = 'fleetview-v1';
+const CACHE_NAME = 'transitlens-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/favicon.ico',
+  '/transitlens-192.png',
+  '/transitlens-512.png',
+  '/transitlens-favicon.png',
 ];
 
 // Install: cache static assets
