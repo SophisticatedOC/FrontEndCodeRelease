@@ -30,22 +30,24 @@ export function Navbar() {
     <header className="border-b bg-card sticky top-0 z-10">
       <div className="container max-w-6xl flex items-center px-4 py-4">
 
-        {/* LEFT: Logo */}
-        <div className="flex items-center gap-3">
-          <img
-            src="/transitlens-logo.png"
-            alt="TransitLens logo"
-            className="h-9 w-9 rounded-lg object-contain"
-          />
-          <div>
-            <h1 className="text-lg font-bold text-foreground leading-none">
-              TransitLens
+        {/* LEFT: Logo + Branding */}
+          <div className="flex items-center gap-3">
+            <img
+              src="/transitlens-logo.png"
+              alt="TransitLens logo"
+              className="h-12 w-12 rounded-lg object-contain"
+            />
+
+          <div className="leading-tight">
+            <h1 className="text-lg font-bold text-foreground">
+              Transit<span className="text-primary">Lens</span>
             </h1>
-            <p className="text-xs text-muted-foreground">
+
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
               AR Maintenance System
             </p>
           </div>
-        </div>
+      </div>
 
         {/* CENTER: Navigation */}
         <nav className="flex items-center gap-2 mx-auto">
