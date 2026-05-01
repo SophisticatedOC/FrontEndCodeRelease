@@ -116,24 +116,24 @@ const Login = () => {
 
           <div className="flex items-center justify-between text-sm h-5">
   
-  {/* Error (left) */}
-  <p
-    className={`font-medium transition-opacity ${
-      error ? "text-red-500 opacity-100" : "opacity-0"
-    }`}
-  >
-    {error || "\u00A0"}
-  </p>
+          {/* Error (left) */}
+          <p
+            className={`font-medium transition-opacity ${
+              error ? "text-red-500 opacity-100" : "opacity-0"
+            }`}
+          >
+            {error || "\u00A0"}
+          </p>
 
-  {/* Forgot password (right) */}
-  <button
-    type="button"
-    className="text-primary hover:underline"
-  >
-    Forgot password?
-  </button>
+          {/* Forgot password (right) */}
+          <button
+            type="button"
+            className="text-primary hover:underline"
+          >
+            Forgot password?
+          </button>
 
-</div>
+        </div>
 
           {/* Submit */}
           <Button type="submit" className="w-full" disabled={loading}>
