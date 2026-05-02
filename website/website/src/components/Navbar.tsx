@@ -99,8 +99,8 @@ export function Navbar() {
                 </p>
               </div>
 
-              <DropdownMenuItem onClick={() => navigate("/tasks")}>
-                My Tasks
+              <DropdownMenuItem onClick={() => navigate("/jobs")}>
+                My Jobs
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={() => navigate("/maintenance-reports")}>
